@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Journal</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <header>
+        <nav>
+            <a href="journal.html"><img src="./ImagesAndLogos/jouranallll.jpg" width="150px" height="50px"
+                    class="journalImage"></a>
+            <a href="index.html"><img src="./ImagesAndLogos/homeeLogo.png" class="HomePagee" alt="Home page"
+                    width="50px" height="50px"></a>
+            <a href="checklist.html"><img src="./ImagesAndLogos/clipboard.png" width="50px" height="50px"></a>
+            <a href="cp.html"><img src="./ImagesAndLogos/1f4ac.png" width="50px" height="50px"
+                    class="journalImage"></a>
+        </nav>
+    </header>
+    <main>
+        <h2>Journal Page</h2>
+        <div class="container">
+            <div class="header">
+                <button class="free-write-btn" onclick="openFreeWrite()">Free Write</button>
+                <button class="journal-prompt-btn" onclick="openJournalPrompt()">Journal Prompt</button>
+            </div>
+            <div class="past-entries">
+                <h3>Past 7 Days</h3>
+                <ul id="journalEntriesList">
+                </ul>
+            </div>
+            <div class="journal-form-container" id="journalFormContainer">
+                <form id="journalForm">
+                    <textarea id="journalInput" rows="4" cols="50"
+                        placeholder="Write your journal entry here..."></textarea>
+                    <button type="submit">Submit</button>
+                </form>
+            </div>
+        </div>
+
+        <script>
+            let journalEntries = [];
+
+            document.getElementById('journalForm').addEventListener('submit', function(event) {
+                event.preventDefault();
+
+                let journalContent = document.getElementById('journalInput').value;
+
+                let entry = {
+                    content: journalContent,
+                    date: new Date().toLocaleDateString()
+                };
+
+                journalEntries.unshift(entry);
+
+                updateJournalUI();
+
+                document.getElementById('journalInput').value = '';
+            });
+
+            function updateJournalUI() {
+                let journalEntriesList = document.getElementById('journalEntriesList');
+                journalEntriesList.innerHTML = '';
+
+                journalEntries.forEach(function(entry, index) {
+                    let listItem = document.createElement('li');
+                    listItem.textContent = `Entry ${index + 1}: ${entry.content} [${entry.date}]`;
+                    journalEntriesList.appendChild(listItem);
+                });
+            }
+
+            function openFreeWrite() {
+                document.getElementById('journalFormContainer').style.display = 'block';
+            }
+
+            function openJournalPrompt() {
+                document.getElementById('journalFormContainer').style.display = 'block';
+            }
+        </script>
+    </main>
+</body>
+
+</html>
